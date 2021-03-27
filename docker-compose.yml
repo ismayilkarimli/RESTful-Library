@@ -1,0 +1,25 @@
+version: '3.1'
+services:
+  app:
+    image: 'ismayilkarimli/restful-library:latest'
+    build:
+      context: .
+    ports:
+      - '8080:8080'
+    depends_on:
+      - db
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/library
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=password
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=create-drop
+
+  db:
+    image: 'postgres:latest'
+    container_name: postgres
+    ports:
+      - '5432:5432'
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=library
